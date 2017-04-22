@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>object</title>
+</head>
+<body>
+<script>
+if (typeof Object.beget !== 'function') {
+    Object.create = function (o) {
+        var F = function () {};
+        F.prototype = o;
+        return new F();
+    }
+};
+var stooge = {};
+var another_stooge = Object.create(stooge);
+another_stooge['first-name'] = 'Harry';
+stooge.profession = 'actor';
+//alert(another_stooge.profession);
+var name;
+for (name in another_stooge) {
+    if (typeof another_stooge[name] !== 'function') {
+        document.writeln(name + ':' + another_stooge[name]);
+    }
+};
+delete another_stooge.first-name;
+alert(another_stooge.first-name);
+</script>
+</body>
+</html>
