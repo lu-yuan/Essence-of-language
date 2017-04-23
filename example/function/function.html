@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>function</title>
+</head>
+<body>
+<script>
+var add = function (a, b) {
+    return a + b;
+}
+//方法调用模式
+var myObject = {
+    value: 0,
+    increment: function (inc) {
+        this.value += typeof inc === 'number' ? inc : 1;
+    }
+}
+myObject.increment();
+document.writeln(myObject['value']);
+document.writeln(myObject['increment']);
+myObject.increment(2);
+document.writeln(myObject['value']);
+//函数调用模式
+var sum = add(3, 4);//this作用域的问题，此模式调用函数时，this被绑定到全局对象，内部this访问时，没有被绑定到外部函数的this变量。内部函数定义一个变量that赋值为this,这时就可以访问this了。
+myObject.double = function () {
+    var that = this;
+    var helper = function () {
+        that.value = add(that.value, that.value);
+    }
+    helper();
+    //that.value = add(that.value, that.value);
+}
+myObject.double();
+document.writeln(myObject.value);
+//构造器调用模式
+var Quo = function (string) {
+    this.status = string;
+}
+Quo.prototype.get_status = function () {
+    return this.status;
+}
+var myQuo = new Quo("confused");
+document.writeln(myQuo.get_status());
+
+
+
+
+</script>
+</body>
+</html>
