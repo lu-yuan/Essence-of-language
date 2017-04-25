@@ -8,6 +8,7 @@
     <title>function</title>
 </head>
 <body>
+    <div>test<br></div>
 <script>
 var add = function (a, b) {
     return a + b;
@@ -143,6 +144,80 @@ var foo = function () {
     bar();
 }
 //闭包
+var myObject = (function () {
+    var value = 0;
+    return {
+        increment: function () {
+            value += typeof inc === 'number' ? inc : 1;
+        },
+        getValue: function () {
+            return value;
+        }
+    }
+});
+//构造函数，带有status私有属性
+var quo = function (status) {
+    return {
+        get_status: function () {
+            return status;
+        }
+    }
+}
+var myQuo = quo('amazed');
+document.writeln(myQuo.get_status());
+/*该函数可以访问它所处的上下文环境，这被称为闭包*/
+//定义一个函数，设置一个dom 节点为黄色，然后把它渐变为白色
+var fade = function (node) {
+    var level = 1;
+    var step = function () {
+        var hex = level.toString(16);
+        node.style.backgroundColor = '' + hex + hex;
+        if (level < 15) {
+            level += 1;
+            setTimeout(step, 100);
+        }
+    }
+    setTimeout(step, 100);
+}
+fade(document.body);
+//糟糕的例子
+var add_the_handlers = function (node) {
+    var i;
+    for (i = 0; i < nodes.length; i += 1) {
+        nodes[i].onclick = function (e) {
+            alert(i);
+        }
+    }
+}
+var add_the_handlers = function (nodes) {
+    var helper = function (i) {
+        return function (e) {
+            alert(i);
+        }
+    }
+    var i;
+    for (i = 0; i < nodes.length; i += 1) {
+        nodes[i].onclick = helper(i);
+    }
+}
+//回调
+request = prepare_the_request();
+response = send_request_synchronously(request);
+display(response);
+//修改后
+request = prepare_the_request();
+send_request_synchronously(request, function (response) {
+    display(response);
+});
+//模块
+
+
+
+
+
+
+
+
 
 </script>
 </body>
