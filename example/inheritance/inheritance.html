@@ -10,8 +10,25 @@
 <body>
     <div>test<br></div>
 <script>
-
-
+//伪类
+//this.prototype = {constructor: this};
+/*Function.method('new', function () {
+    var that = Object.create(this.prototype);
+    var other = this.apply(that, arguments);
+    return (typeof other === 'Object' && other) || that;
+});*/
+var Mammal = function (name) {
+    this.name = name;
+}
+Mammal.prototype.get_name = function () {
+    return this.name;
+}
+Mammal.prototype.says = function () {
+    return this.saying || '';
+}
+var myMammal = new Mammal('Herb the Mammal');
+var name = myMammal.get_name();
+alert(name);
 
 
 
